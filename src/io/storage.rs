@@ -1,3 +1,4 @@
+use crate::io::partition::PartitionHandle;
 use std::collections::HashMap;
 
 trait StorageManager {
@@ -49,20 +50,11 @@ trait StorageManager {
     }
 }
 
-struct PartitionHandle {
-    /// Contents of the master page of this partition
-    master_page: Vec<u16>,
-    /// Contents of the various header pages of this partition
-    header_pages: Vec<Vec<u8>>,
-    /// Partition number
-    part_num: usize,
-}
-
 pub struct DiskSpaceManager {
     /// Name of base directory
     db_dir: String,
     /// Information about each partition
-    part_info: HashMap<usize, PartitionHandle>,
+    part_info: PartitionHandle,
 }
 
 impl StorageManager for DiskSpaceManager {
